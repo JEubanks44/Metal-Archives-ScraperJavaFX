@@ -1,0 +1,48 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 29, 2018, 7:52:05 PM
+    Author     : Joseph Eubanks
+*/
+
+.label {
+    -fx-font-size: 30px; 
+    -fx-font-family: "Norse";
+    -fx-text-fill: #7a2400;
+   
+}
+
+.button {
+    -fx-background-color: #7a2400;
+    -fx-font-family: "Norse";
+    -fx-font-size: 25px;
+        
+}
+
+.button:hover {
+    -fx-background-color: #5e1c00;
+
+}
+
+.button:pressed {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #7a2400;
+}
+
+.control-pane {
+    -fx-background-color: black;
+    -fx-padding: 10 10 10 10;
+    
+}
+
+.info-pane .label {
+    -fx-padding: 10 10 10 10;
+}
+
+.rootPane {
+    -fx-font-family: "Norse";
+    -fx-font-size: 20px;
+}
