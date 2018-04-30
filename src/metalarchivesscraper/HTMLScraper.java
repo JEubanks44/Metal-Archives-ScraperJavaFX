@@ -7,7 +7,7 @@ package metalarchivesscraper;
 
 /**
  *
- * @author Joseph
+ * @author Joseph Eubanks
  */
 import org.jsoup.*;
 import org.jsoup.nodes.*;
@@ -122,8 +122,7 @@ public class HTMLScraper{
       albumName.replace(" ", "_");
       String url = String.format("https://www.metal-archives.com/albums/%s/%s", bandName, albumName);
       Document document = Jsoup.connect(url).get();
-      Elements types = document.select("div#album_members_lineup > div > table > tbody > tr > td > a");
-      
+      Elements types = document.select("div#album_members_lineup > div > table > tbody > tr");
       for (Element elm : types){
         System.out.println(elm.text());
         String member = elm.text() + "\n";
