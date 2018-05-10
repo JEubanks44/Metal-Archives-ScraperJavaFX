@@ -5,7 +5,6 @@
  */
 package metalarchivesscraper;
 
-import com.sun.prism.paint.Color;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,16 +15,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import org.jsoup.*;
+
+
 
 /**
  *
@@ -51,11 +48,18 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
     Label coverArtTextLabel;
     Label bandLogoLabel;
     Label bandLogoTextLabel;
+    Label leftLogo;
+    Label rightLogo;
+    Label bottomLogo;
+    Label youtubeEmbed;
+    Label trackListLabel;
     
     TextField bandNameTextField;
     TextField albumNameTextField;
     
     Button loadInfoButton;
+    Button nextAlbumButton;
+    Button prevAlbumButton;
     
     HBox controlPane;
     VBox infoPane;
@@ -68,6 +72,8 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
     
     
     ScrollPane scrollBox;
+    
+    WebView webview;
     
     
     
@@ -106,29 +112,61 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
         
         bandNameLabel = new Label("Band Name");
         albumNameLabel = new Label("Album Name");
-        releaseDateLabel = new Label("Release Date");
+        releaseDateLabel = new Label("");
         releaseTypeLabel = new Label("Release Type");
-        bandLogoTextLabel = new Label("Band Logo: ");
+        bandLogoTextLabel = new Label("Band Logo(s): ");
         bandLogoLabel = new Label("");
         coverArtTextLabel = new Label("Cover Art: ");
         coverArtLabel = new Label("");
         lineupTextLabel = new Label("Lineup:");
         lineupLabel = new Label("");
+        lineupLabel.setAlignment(Pos.CENTER_LEFT);
+        Label trackListTextLabel = new Label("Track List:");
+        trackListLabel = new Label("");
+        trackListLabel.setAlignment(Pos.CENTER);
         
+        webview = new WebView();
+        //String content_url = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/9SV4vCQGJko\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>";
+        //webview.getEngine().loadContent(content_url);
+        //webview.getStyleClass().add("webviewer");
+
         infoPane = new VBox();
-        infoPane.getChildren().addAll(bandNameLabel, bandLogoTextLabel, bandLogoLabel, albumNameLabel, releaseDateLabel, releaseTypeLabel, coverArtTextLabel, coverArtLabel, lineupTextLabel, lineupLabel);
+        infoPane.getChildren().addAll(bandNameLabel, bandLogoTextLabel, bandLogoLabel, albumNameLabel, releaseDateLabel, releaseTypeLabel, coverArtTextLabel, coverArtLabel, lineupTextLabel, lineupLabel, trackListTextLabel, trackListLabel, webview);
         infoPane.setAlignment(Pos.CENTER);
         infoPane.setFillWidth(true);
         infoPane.getStyleClass().add("info-pane");
+       
         
         scrollBox = new ScrollPane();
         scrollBox.setContent(infoPane);
         scrollBox.setFitToHeight(false);
         scrollBox.setFitToWidth(true);
         
+        leftLogo = new Label("M\nE\nT\nA\nL");
+        leftLogo.setPrefSize(60, 1000);
+        leftLogo.setAlignment(Pos.CENTER);
         leftPane = new VBox();
+        leftPane.getChildren().add(leftLogo);
+        leftPane.getStyleClass().add("left-pane");
+        leftPane.setPrefWidth(60);
+        leftPane.setPrefHeight(1000);
+        leftPane.setFillWidth(true);
+        
+        rightLogo = new Label("A\nR\nC\nH\nI\nV\nE\nS");
+        rightLogo.setPrefSize(60, 1000);
+        rightLogo.setAlignment(Pos.CENTER);
         rightPane = new VBox();
+        rightPane.getChildren().add(rightLogo);
+        rightPane.getStyleClass().add("right-pane");
+        rightPane.setPrefSize(60, 1000);
+               
+        bottomLogo = new Label();
+        bottomLogo.setPrefSize(1920, 60);
+        bottomLogo.setAlignment(Pos.CENTER);
         bottomPane = new HBox();
+        bottomPane.getChildren().add(bottomLogo);
+        bottomPane.getStyleClass().add("bottom-pane");
+        bottomPane.setAlignment(Pos.CENTER);
         
         
         rootPane = new BorderPane();
@@ -156,13 +194,15 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
                 
                 String bandName = bandNameTextField.getText().trim();
                 String albumName = albumNameTextField.getText().trim();
-                
+                albumNameLabel.setText("Album Name: " + albumName);
+                scraper.getBandName(bandName, bandNameLabel, bottomLogo);
                 scraper.getCoverArt(bandName, albumName, coverArtLabel);
                 scraper.getBandLogo(bandName, bandLogoLabel);
                 scraper.getLineupList(bandName, albumName, lineupLabel);
                 scraper.getReleaseDate(bandName, albumName, releaseDateLabel);
                 scraper.getReleaseType(bandName, albumName, releaseTypeLabel);
-                
+                scraper.getTrackList(bandName, albumName, trackListLabel);
+                scraper.getYouTubeURL(bandName, albumName, webview);
             }
             catch (Exception e1) {
                 
