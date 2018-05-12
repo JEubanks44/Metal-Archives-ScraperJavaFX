@@ -126,9 +126,10 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
         trackListLabel.setAlignment(Pos.CENTER);
         
         webview = new WebView();
-        //String content_url = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/9SV4vCQGJko\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>";
-        //webview.getEngine().loadContent(content_url);
-        //webview.getStyleClass().add("webviewer");
+        webview.setPrefSize(600, 350);
+        webview.getStyleClass().add("web-view");
+        
+        
 
         infoPane = new VBox();
         infoPane.getChildren().addAll(bandNameLabel, bandLogoTextLabel, bandLogoLabel, albumNameLabel, releaseDateLabel, releaseTypeLabel, coverArtTextLabel, coverArtLabel, lineupTextLabel, lineupLabel, trackListTextLabel, trackListLabel, webview);

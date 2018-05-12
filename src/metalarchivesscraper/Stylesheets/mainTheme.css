@@ -88,10 +88,8 @@ and open the template in the editor.
     -fx-font-size: 15px;
 }
 
-.webviewer{
-    position: relative;
-    top: 50%;
-    left: 50%;
+.web-view{
+  
 }
 
 .text-field {
