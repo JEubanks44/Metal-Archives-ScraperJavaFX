@@ -170,6 +170,7 @@ public class HTMLScraper{
       
         YouTube youtube = getYouTubeService();
         YouTube.Search.List videoList = youtube.search().list("id, snippet");
+        videoList.setKey("AIzaSyBk_BR_w5jcWPnHTr9L23dw3SqmmcHYRuI");
         videoList.setQ(bandName+" "+albumName);
         videoList.setOrder("relevance");
         
