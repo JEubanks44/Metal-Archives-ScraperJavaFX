@@ -52,7 +52,7 @@ public class HTMLScraper{
     
     private static final String APPLICATION_NAME = "MetalArchivesScraper";
     private static FileDataStoreFactory DATA_STORE_FACTORY;
-    private static final java.io.File DATA_STORE_DIR = new java.io.File(System.getProperty("user.home"), ".credentials/metalarchivesscraper" );
+    private static final java.io.File DATA_STORE_DIR = new java.io.File(System.getProperty("user.home"), "./credentials/metalarchivesscraper" );
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static HttpTransport HTTP_TRANSPORT;
     private static final List<String> SCOPES = Arrays.asList(YouTubeScopes.YOUTUBE_READONLY);
@@ -69,7 +69,7 @@ public class HTMLScraper{
     }
     
     public static Credential authorize() throws Exception {
-        InputStreamReader in = new InputStreamReader(new FileInputStream("src\\metalarchivesscraper\\client_secret.json"));
+        InputStreamReader in = new InputStreamReader(new FileInputStream("src/metalarchivesscraper/client_secret.json"));
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, in);
         
         GoogleAuthorizationCodeFlow flow = 
@@ -167,12 +167,13 @@ public class HTMLScraper{
    }
    
     public void getYouTubeURL(String bandName, String albumName, WebView webview) throws Exception{
-      
+        Properties properties = new Properties();
+        String apiKey = properties.getProperty("youtube.apikey");
         YouTube youtube = getYouTubeService();
         YouTube.Search.List videoList = youtube.search().list("id, snippet");
-        videoList.setKey("AIzaSyBk_BR_w5jcWPnHTr9L23dw3SqmmcHYRuI");
         videoList.setQ(bandName+" "+albumName);
         videoList.setOrder("relevance");
+        videoList.setKey(apiKey);
         
         SearchListResponse response = videoList.execute();
         SearchResult video = response.getItems().get(0);
