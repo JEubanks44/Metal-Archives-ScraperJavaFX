@@ -55,6 +55,7 @@ public class HTMLScraper{
     private static final java.io.File DATA_STORE_DIR = new java.io.File(System.getProperty("user.home"), "./credentials/metalarchivesscraper" );
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static HttpTransport HTTP_TRANSPORT;
+    private static final String CRED_DIRECTORY = ".oauth-credentials";
     private static final List<String> SCOPES = Arrays.asList(YouTubeScopes.YOUTUBE_READONLY);
     
     static {

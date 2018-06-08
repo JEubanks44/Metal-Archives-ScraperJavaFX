@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="MetalArchivesScraper.jar" size="181020" download="eager" />
+    <jar href="MetalArchivesScraper.jar" size="181049" download="eager" />
     <jar href="lib\google-api-client-1.23.0.jar" size="199392" download="eager" />
     <jar href="lib\google-api-client-jackson2-1.23.0.jar" size="2700" download="eager" />
     <jar href="lib\google-api-client-servlet-1.23.0.jar" size="6597" download="eager" />
