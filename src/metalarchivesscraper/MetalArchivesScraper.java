@@ -73,7 +73,7 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
     
     ScrollPane scrollBox;
     
-    WebView webview;
+
     
     
     
@@ -125,14 +125,13 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
         trackListLabel = new Label("");
         trackListLabel.setAlignment(Pos.CENTER);
         
-        webview = new WebView();
-        webview.setPrefSize(600, 350);
-        webview.getStyleClass().add("web-view");
+
+        
         
         
 
         infoPane = new VBox();
-        infoPane.getChildren().addAll(bandNameLabel, bandLogoTextLabel, bandLogoLabel, albumNameLabel, releaseDateLabel, releaseTypeLabel, coverArtTextLabel, coverArtLabel, lineupTextLabel, lineupLabel, trackListTextLabel, trackListLabel, webview);
+        infoPane.getChildren().addAll(bandNameLabel, bandLogoTextLabel, bandLogoLabel, albumNameLabel, releaseDateLabel, releaseTypeLabel, coverArtTextLabel, coverArtLabel, lineupTextLabel, lineupLabel, trackListTextLabel, trackListLabel);
         infoPane.setAlignment(Pos.CENTER);
         infoPane.setFillWidth(true);
         infoPane.getStyleClass().add("info-pane");
@@ -203,7 +202,6 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
                 scraper.getReleaseDate(bandName, albumName, releaseDateLabel);
                 scraper.getReleaseType(bandName, albumName, releaseTypeLabel);
                 scraper.getTrackList(bandName, albumName, trackListLabel);
-                scraper.getYouTubeURL(bandName, albumName, webview);
             }
             catch (Exception e1) {
                 

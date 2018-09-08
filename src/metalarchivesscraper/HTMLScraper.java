@@ -167,32 +167,6 @@ public class HTMLScraper{
       label.setText("Release Type: " + typeString);    
    }
    
-    public void getYouTubeURL(String bandName, String albumName, WebView webview) throws Exception{
-        Properties properties = new Properties();
-        String apiKey = properties.getProperty("youtube.apikey");
-        YouTube youtube = getYouTubeService();
-        YouTube.Search.List videoList = youtube.search().list("id, snippet");
-        videoList.setQ(bandName+" "+albumName);
-        videoList.setOrder("relevance");
-        videoList.setKey(apiKey);
-        
-        SearchListResponse response = videoList.execute();
-        SearchResult video = response.getItems().get(0);
-        System.out.println(videoList);
-        System.out.println(video.getId().getVideoId());
-        System.out.println(video.getSnippet().getTitle());
-        
-        String videoID = video.getId().getVideoId();
-        
-        bandName.replace(" ", "+");
-        albumName.replace(" ", "+");
-       
-        String videoEmbedURL = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/"+ videoID+"\"frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>";
-
-        webview.getEngine().loadContent(videoEmbedURL);
-      
-     
-   }
    
    public void getLineupList(String bandName, String albumName, Label label) throws Exception{
       String lineup = "";
