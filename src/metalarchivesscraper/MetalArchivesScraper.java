@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-
+import javafx.scene.image.ImageView;
 
 
 /**
@@ -53,7 +53,7 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
     Label bottomLogo;
     Label youtubeEmbed;
     Label trackListLabel;
-    
+    ImageView bandLogo;
     TextField bandNameTextField;
     TextField albumNameTextField;
     
@@ -73,7 +73,6 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
     
     ScrollPane scrollBox;
     
-
     
     
     
@@ -125,7 +124,7 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
         trackListLabel = new Label("");
         trackListLabel.setAlignment(Pos.CENTER);
         
-
+        
         
         
         
@@ -135,7 +134,7 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
         infoPane.setAlignment(Pos.CENTER);
         infoPane.setFillWidth(true);
         infoPane.getStyleClass().add("info-pane");
-       
+        infoPane.setVisible(false);
         
         scrollBox = new ScrollPane();
         scrollBox.setContent(infoPane);
@@ -191,23 +190,30 @@ public class MetalArchivesScraper extends Application implements EventHandler<Ac
         if(event.getSource()==loadInfoButton) {
             System.out.println("Load _Info_Button_Pressed");
             try {
-                
+            	bottomLogo.setText("Error: Can't Find that Release");
+            	infoPane.setVisible(false);
                 String bandName = bandNameTextField.getText().trim();
                 String albumName = albumNameTextField.getText().trim();
                 albumNameLabel.setText("Album Name: " + albumName);
                 scraper.getBandName(bandName, bandNameLabel, bottomLogo);
                 scraper.getCoverArt(bandName, albumName, coverArtLabel);
-                scraper.getBandLogo(bandName, bandLogoLabel);
+                scraper.getBandLogo(bandName, bandLogoLabel, scrollBox);
                 scraper.getLineupList(bandName, albumName, lineupLabel);
                 scraper.getReleaseDate(bandName, albumName, releaseDateLabel);
                 scraper.getReleaseType(bandName, albumName, releaseTypeLabel);
                 scraper.getTrackList(bandName, albumName, trackListLabel);
+                infoPane.setVisible(true);
+               
             }
             catch (Exception e1) {
-                
+            	System.out.println(e1.getStackTrace());
+            	System.out.println(e1.getMessage());
+            	System.out.println(e1.getCause().toString());
+            	bottomLogo.setText("Error! Can't find that release!");
             }
         }
     }
+    
     /**
      * @param args the command line arguments
      */

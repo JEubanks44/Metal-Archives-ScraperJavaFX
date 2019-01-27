@@ -32,8 +32,11 @@ import org.jsoup.select.*;
 import java.net.URL;
 import java.util.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -101,14 +104,15 @@ public class HTMLScraper{
         bandName.replace(" ", "_");
         albumName.replace(" ", "_");
         String url = String.format("https://www.metal-archives.com/albums/%s/%s", bandName, albumName);
-	Document document = Jsoup.connect(url).get();
-	Element cover = document.select(".image#cover").first();
+        Document document = Jsoup.connect(url).get();
+        Element cover = document.select(".image#cover").first();
         String relHref = cover.attr("href");
         String absHref = cover.attr("abs:href");
         Image coverArt = new Image(absHref);
         ImageView artView = new ImageView(coverArt);
-        artView.setFitHeight(500);
-        artView.setFitWidth(500);
+        artView.maxHeight(1000);
+        artView.maxWidth(1000);
+        //artView.setFitWidth(500);
         artView.setSmooth(true);
         label.setGraphic(artView);
 }
@@ -125,7 +129,7 @@ public class HTMLScraper{
       Description: 
    */
    
-   public void getBandLogo(String bandName, Label label) throws Exception{;
+   public void getBandLogo(String bandName, Label label, ScrollPane pane) throws Exception{;
       bandName.replace(" ", "_");
       String url = String.format("https://www.metal-archives.com/bands/%s", bandName);
       Document document = Jsoup.connect(url).get();
@@ -135,8 +139,7 @@ public class HTMLScraper{
       System.out.println(absHref);
       Image bandLogo = new Image(absHref);
       ImageView logoView = new ImageView(bandLogo);
-      logoView.setFitHeight(500);
-      logoView.setFitWidth(500);
+      logoView.fitWidthProperty().bind(pane.widthProperty()); 
       logoView.setSmooth(true);
       label.setGraphic(logoView);
    }
